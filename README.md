@@ -1,4 +1,4 @@
-# PIR – nano33ble
+# PIR – Arduino Nano 33 BLE
 
 <!-- PROJECT LOGO -->
 <br />
@@ -8,7 +8,7 @@
   </a>
 
   <p align="center">
-    IDS: Code for the nano33ble board
+    IDS: Code for the Arduino Nano 33 BLE board
     <br />
     <a href="https://github.com/PIR-IDS/nano33ble/releases"><strong>See Releases »</strong></a>
     <br />
