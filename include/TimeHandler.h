@@ -9,6 +9,7 @@
 namespace pirids {
     class TimeHandler {
     private:
+        using chrono_clock = std::chrono::system_clock;
         static std::chrono::milliseconds utc_epoch_ms;
     public:
         static std::string getStrDateUTC();
