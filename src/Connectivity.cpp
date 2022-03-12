@@ -85,9 +85,12 @@ void pirids::Connectivity::run()
     while (central.connected()) {
         if(!dateSet) {
             char buf[DATE_UTC_BUFFER_SIZE] = "\0";
-            synchroDate.readValue(buf, DATE_UTC_BUFFER_SIZE);
-            Serial.println(buf);
-            TimeHandler::setUTCEpochMs(TimeHandler::utcStrToEpochMs(buf));
+            while(std::strcmp("", buf) == 0) {
+                synchroDate.readValue(buf, DATE_UTC_BUFFER_SIZE);
+                Serial.println(buf);
+            }
+            TimeHandler::setUTCEpochMs(TimeHandler::utcEpochStrMsToEpochMs(buf));
+            dateSet = true;
         }
 
         whenWalletOut.writeValue(TimeHandler::getStrDateUTC().c_str());

@@ -14,7 +14,7 @@ namespace pirids {
     public:
         static std::string getStrDateUTC();
         static void setUTCEpochMs(const std::chrono::milliseconds &utcEpochMs);
-        static std::chrono::milliseconds utcStrToEpochMs(const std::string &utc);
+        static std::chrono::milliseconds utcEpochStrMsToEpochMs(const std::string &utc);
     };
 }
 
