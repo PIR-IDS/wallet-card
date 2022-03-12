@@ -6,6 +6,10 @@
 
 #define DATE_UTC_BUFFER_SIZE 80
 
+#define DATE_OFFSET_SEC_70_YEARS 2208988805ULL
+#define DATE_OFFSET_SEC_1_DAY 86400ULL
+#define DATE_OFFSET_SEC_C (DATE_OFFSET_SEC_70_YEARS + DATE_OFFSET_SEC_1_DAY)
+
 namespace pirids {
     class TimeHandler {
     private:

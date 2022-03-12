@@ -35,6 +35,10 @@ void pirids::TimeHandler::setUTCEpochMs(const std::chrono::milliseconds &utcEpoc
  * @return
  */
 std::chrono::milliseconds pirids::TimeHandler::utcEpochStrMsToEpochMs(const std::string &utc) {
-    struct tm tm = { .tm_sec = std::stoi(utc) / 1000 }; // no milliseconds precision so we use seconds
+    // no milliseconds precision so we use seconds
+    struct tm tm = {
+        .tm_sec = static_cast<int>(((std::stoull(utc) / 1000) + DATE_OFFSET_SEC_C) % 60),
+        .tm_min = static_cast<int>(((std::stoull(utc) / 1000) + DATE_OFFSET_SEC_C) / 60)
+    };
     return std::chrono::duration_cast<std::chrono::milliseconds>(chrono_clock::from_time_t(std::mktime(&tm)).time_since_epoch());
 }

@@ -80,17 +80,24 @@ void pirids::Connectivity::run()
         Serial.print("Connected to central: ");
         Serial.println(central.address());
         digitalWrite(LED_BUILTIN, HIGH);
+
+        if(dateSet) {
+            Serial.println("IDS ready.");
+        }
     }
 
     while (central.connected()) {
         if(!dateSet) {
+            Serial.println("Waiting for Date UTC...");
             char buf[DATE_UTC_BUFFER_SIZE] = "\0";
-            while(std::strcmp("", buf) == 0) {
+            do {
                 synchroDate.readValue(buf, DATE_UTC_BUFFER_SIZE);
-                Serial.println(buf);
-            }
-            TimeHandler::setUTCEpochMs(TimeHandler::utcEpochStrMsToEpochMs(buf));
+                //delay(100);
+            } while(std::strcmp("", buf) == 0 && central.connected());
+            std::string buf_str(buf);
+            TimeHandler::setUTCEpochMs(TimeHandler::utcEpochStrMsToEpochMs(buf_str));
             dateSet = true;
+            Serial.println("IDS ready.");
         }
 
         whenWalletOut.writeValue(TimeHandler::getStrDateUTC().c_str());
