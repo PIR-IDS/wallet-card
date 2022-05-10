@@ -94,14 +94,23 @@ void pirids::Connectivity::run(pirids::Analysis *a, pirids::Sensor *s)
             Serial.println("Waiting for Date UTC...");
             char buf[DATE_UTC_BUFFER_SIZE] = "\0";
             do {
-                synchroDate.readValue(buf, DATE_UTC_BUFFER_SIZE);
                 //delay(100);
+                synchroDate.read();
+                if(synchroDate.valueLength() <= 0) continue;
+                synchroDate.readValue(buf, DATE_UTC_BUFFER_SIZE);
             } while(std::strcmp("", buf) == 0 && central.connected());
             std::string buf_str(buf);
-            TimeHandler::setUTCEpochMs(TimeHandler::utcEpochStrMsToEpochMs(buf_str));
-            dateSet = true;
-            Serial.println("IDS ready.");
-            Serial.println("IDS ON.");
+            if(std::all_of(buf_str.begin(), buf_str.end(), ::isdigit) && central.connected()) {
+                TimeHandler::setUTCEpochMs(TimeHandler::utcEpochStrMsToEpochMs(buf_str));
+                dateSet = true;
+                Serial.println("IDS ready.");
+                Serial.println("IDS ON.");
+            } else {
+                Serial.println("Initialization error, retrying...");
+                if(central.connected()) {
+                    continue;
+                }
+            }
         }
 
         if(central.connected()) {
@@ -126,11 +135,15 @@ void pirids::Connectivity::run(pirids::Analysis *a, pirids::Sensor *s)
                 walletOut.writeValue(true);
                 whenWalletOut.writeValue(TimeHandler::getStrDateUTC().c_str());
             }
-        } else {
+        }
+
+        if(!central.connected()) {
             Serial.print("Disconnected from central: ");
             Serial.println(central.address());
             digitalWrite(LED_BUILTIN, LOW);
-            Serial.println("IDS OFF.");
+            if(dateSet) {
+                Serial.println("IDS OFF.");
+            }
             break;
         }
     }
