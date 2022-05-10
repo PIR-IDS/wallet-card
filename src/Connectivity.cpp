@@ -116,7 +116,7 @@ void pirids::Connectivity::run(pirids::Analysis *a, pirids::Sensor *s)
             // Attempt to read new data from the accelerometer.
             bool got_data = s->readAccelerometer(model_input->data.f, input_length);
             // If there was no new data, wait until next time.
-            if (!got_data) return;
+            if (!got_data) continue;
 
             walletIsOut = a->run();
 
