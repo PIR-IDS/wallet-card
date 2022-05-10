@@ -112,7 +112,7 @@ void pirids::Connectivity::run(pirids::Analysis *a, pirids::Sensor *s)
             TfLiteTensor *model_input = nullptr;
             int input_length;
 
-            a->initModel(model_input, &input_length);
+            a->initModel(&model_input, &input_length);
             // Attempt to read new data from the accelerometer.
             bool got_data = s->readAccelerometer(model_input->data.f, input_length);
             // If there was no new data, wait until next time.
