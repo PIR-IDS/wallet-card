@@ -2,6 +2,8 @@
 #define NANO33BLE_CONNECTIVITY_H
 
 #include <ArduinoBLE.h>
+#include "Analysis.h"
+#include "Sensor.h"
 
 namespace pirids {
     class Connectivity {
@@ -20,7 +22,7 @@ namespace pirids {
 
     public:
         static Connectivity *getInstance();
-        void run();
+        void run(pirids::Analysis *a, pirids::Sensor *s);
 
     };
 }

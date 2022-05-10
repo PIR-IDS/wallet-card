@@ -1,5 +1,7 @@
 #include "Connectivity.h"
 #include "TimeHandler.h"
+#include "Analysis.h"
+#include "Sensor.h"
 
 #include <ArduinoBLE.h>
 
@@ -72,7 +74,7 @@ pirids::Connectivity::Connectivity():
     Serial.println("Bluetooth device active, waiting for connections...");
 }
 
-void pirids::Connectivity::run()
+void pirids::Connectivity::run(pirids::Analysis *a, pirids::Sensor *s)
 {
     BLEDevice central = BLE.central();
 
@@ -83,6 +85,7 @@ void pirids::Connectivity::run()
 
         if(dateSet) {
             Serial.println("IDS ready.");
+            Serial.println("IDS ON.");
         }
     }
 
@@ -98,15 +101,36 @@ void pirids::Connectivity::run()
             TimeHandler::setUTCEpochMs(TimeHandler::utcEpochStrMsToEpochMs(buf_str));
             dateSet = true;
             Serial.println("IDS ready.");
+            Serial.println("IDS ON.");
         }
 
-        whenWalletOut.writeValue(TimeHandler::getStrDateUTC().c_str());
-        delay(1000);
+        if(central.connected()) {
+            bool walletIsOut;
 
-        if(!central.connected()) {
+            /* ------ IDS PROCESSING ----------- */
+
+            TfLiteTensor *model_input = nullptr;
+            int input_length;
+
+            a->initModel(model_input, &input_length);
+            // Attempt to read new data from the accelerometer.
+            bool got_data = s->readAccelerometer(model_input->data.f, input_length);
+            // If there was no new data, wait until next time.
+            if (!got_data) return;
+
+            walletIsOut = a->run();
+
+            /* -------------------------------- */
+
+            if (walletIsOut) {
+                walletOut.writeValue(true);
+                whenWalletOut.writeValue(TimeHandler::getStrDateUTC().c_str());
+            }
+        } else {
             Serial.print("Disconnected from central: ");
             Serial.println(central.address());
             digitalWrite(LED_BUILTIN, LOW);
+            Serial.println("IDS OFF.");
             break;
         }
     }
