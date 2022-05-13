@@ -132,8 +132,8 @@ void pirids::Connectivity::run(pirids::Analysis *a, pirids::Sensor *s)
             /* -------------------------------- */
 
             if (walletIsOut) {
-                walletOut.writeValue(true);
                 whenWalletOut.writeValue(TimeHandler::getStrDateUTC().c_str());
+                walletOut.writeValue(true);
             }
         }
 
