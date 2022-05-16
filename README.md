@@ -82,7 +82,7 @@ This code will be used in order to detect anomalies and to inform our IDS about 
    ```
 2. Install the dependencies by typing the following command while being in the project root:
    ```sh
-   pio lib install
+   pio pkg install
    ```
 
 #### Using an IDE
