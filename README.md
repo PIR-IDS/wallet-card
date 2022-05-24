@@ -85,22 +85,24 @@ This code will be used in order to detect anomalies and to inform our IDS about 
    pio pkg install
    ```
 
-#### Using an IDE
+<details>
+  <summary>Using an IDE</summary>
+  <br />
+  If you want to use a specific IDE with this project, you can list the compatible ones by checking the `--ide` line with:
+  ```sh
+  pio init -h
+  ```
 
-If you want to use a specific IDE with this project, you can list the compatible ones by checking the `--ide` line with:
-```sh
-pio init -h
-```
+  Choose your IDE with:
+  ```sh
+  pio init --ide <ide>
+  ```
 
-Choose your IDE with:
-```sh
-pio init --ide <ide>
-```
+  > :warning: **DO NOT COMMIT THE NEWLY CREATED FILES AFTER THE IDE INIT COMMAND.**
+  > 
+  > You can add their name/location in the `.git/info/exclude` file to exclude them from the VCS without affecting the `.gitignore` file. You will also have to add the build directories created by your IDE in order to keep your artifacts outside of the project repository.
 
-> :warning: **DO NOT COMMIT THE NEWLY CREATED FILES AFTER THE IDE INIT COMMAND.**
-> 
-> You can add their name/location in the `.git/info/exclude` file to exclude them from the VCS without affecting the `.gitignore` file. You will also have to add the build directories created by your IDE in order to keep your artifacts outside of the project repository.
-
+</details>
 
 <!-- USAGE EXAMPLES -->
 ## Usage
