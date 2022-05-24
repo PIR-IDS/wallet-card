@@ -89,6 +89,7 @@ This code will be used in order to detect anomalies and to inform our IDS about 
   <summary>Using an IDE</summary>
   <br />
   If you want to use a specific IDE with this project, you can list the compatible ones by checking the `--ide` line with:
+  
   ```sh
   pio init -h
   ```
