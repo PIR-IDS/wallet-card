@@ -68,6 +68,7 @@ bool pirids::Sensor::readAccelerometer(float* input, int length) {
         save_data[begin_index++] = norm_x * 1000;
         save_data[begin_index++] = norm_y * 1000;
         save_data[begin_index++] = norm_z * 1000;
+        Serial.println(begin_index);
         // Since we took a sample, reset the skip counter
         sample_skip_counter = 1;
 
