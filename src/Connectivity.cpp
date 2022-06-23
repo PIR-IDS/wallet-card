@@ -32,7 +32,7 @@ pirids::Connectivity::Connectivity():
     }
 
     BLE.setDeviceName("PIR-IDS Card");
-    BLE.setLocalName("PIR-IDS");
+    BLE.setLocalName("PIR-IDS WALLET CARD");
 
     // Generic Access Control (the closest one to an IDS)
     // see: https://specificationrefs.bluetooth.com/assigned-values/Appearance%20Values.pdf
