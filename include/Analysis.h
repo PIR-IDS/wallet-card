@@ -22,11 +22,12 @@ namespace pirids {
         tflite::MicroInterpreter* interpreter;
         TfLiteTensor* model_input;
         int input_length;
+        int dataAmout = 256;
 
         // Create an area of memory to use for input, output, and intermediate arrays.
         // The size of this will depend on the model you're using, and may need to be
         // determined by experimentation.
-        constexpr static int kTensorArenaSize = 60 * 1024;
+        constexpr static int kTensorArenaSize = 2 * 60 * 1024;
         uint8_t tensor_arena[kTensorArenaSize];
 
         // What gestures are supported.

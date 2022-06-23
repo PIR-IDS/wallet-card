@@ -63,7 +63,7 @@ pirids::Analysis::Analysis(int kChannelNumber):
     // Obtain pointer to the model's input tensor.
     model_input = interpreter->input(0);
     if ((model_input->dims->size != 4) || (model_input->dims->data[0] != 1) ||
-        (model_input->dims->data[1] != 128) ||
+        (model_input->dims->data[1] != dataAmout) ||
         (model_input->dims->data[2] != kChannelNumber) ||
         (model_input->type != kTfLiteFloat32)) {
         TF_LITE_REPORT_ERROR(error_reporter,
