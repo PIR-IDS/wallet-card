@@ -16,7 +16,7 @@ namespace pirids {
         int setupAccelerometer();
 
         // A buffer holding the last 300 sets of 3-channel values
-        float save_data[900];
+        float save_data[600];
         // Most recent position in the save_data buffer
         int begin_index;
         // True if there is not yet enough data to run inference

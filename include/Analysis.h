@@ -22,7 +22,7 @@ namespace pirids {
         tflite::MicroInterpreter* interpreter;
         TfLiteTensor* model_input;
         int input_length;
-        int dataAmout = 256;
+        int dataAmout = 96;
 
         // Create an area of memory to use for input, output, and intermediate arrays.
         // The size of this will depend on the model you're using, and may need to be
@@ -40,7 +40,7 @@ namespace pirids {
         // these thresholds. Often, increasing the size of the training set will give
         // more robust results though, so consider retraining if you are seeing poor
         // predictions.
-        constexpr static float kDetectionThreshold = 0.7f;
+        constexpr static float kDetectionThreshold = 0.8f;
         constexpr static int kPredictionHistoryLength = 5;
         constexpr static int kPredictionSuppressionDuration = 5;//25
 
