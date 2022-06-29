@@ -42,7 +42,7 @@ namespace pirids {
         // predictions.
         constexpr static float kDetectionThreshold = 0.8f;
         constexpr static int kPredictionHistoryLength = 5;
-        constexpr static int kPredictionSuppressionDuration = 5;//25
+        constexpr static int kPredictionSuppressionDuration = 25;//25
 
         // State for the averaging algorithm we're using.
         float prediction_history[kGestureCount][kPredictionHistoryLength];
