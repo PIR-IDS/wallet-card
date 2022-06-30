@@ -3,7 +3,7 @@
 
 #include <Arduino_LSM9DS1.h>
 
-#define ACCEL_SAMPLES_PER_SECOND 100
+#define ACCEL_SAMPLES_PER_SECOND 25
 #define CHANNEL_NUMBER 3
 
 namespace pirids {
@@ -15,7 +15,7 @@ namespace pirids {
 
         int setupAccelerometer();
 
-        // A buffer holding the last 200 sets of 3-channel values
+        // A buffer holding the last 300 sets of 3-channel values
         float save_data[600];
         // Most recent position in the save_data buffer
         int begin_index;
