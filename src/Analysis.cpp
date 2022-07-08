@@ -74,11 +74,13 @@ pirids::Analysis::Analysis(int kChannelNumber):
     input_length = model_input->bytes / sizeof(float);
 }
 
-void pirids::Analysis::initModel(TfLiteTensor **model_in, int *length) {
-    *model_in = model_input;
-    *length = input_length;
+TfLiteTensor* pirids::Analysis::getModelInput() {
+    return model_input;
 }
 
+int pirids::Analysis::getInputLength() {
+    return input_length;
+}
 
 bool pirids::Analysis::run() {
     // Run inference, and report any error.

@@ -51,7 +51,8 @@ namespace pirids {
 
     public:
         static Analysis *getInstance(int kChannelNumber);
-        void initModel(TfLiteTensor **model_in, int *length);
+        TfLiteTensor* getModelInput();
+        int getInputLength();
         bool run();
     };
 }
