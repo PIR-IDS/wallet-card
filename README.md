@@ -3,19 +3,19 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/PIR-IDS/nano33ble">
+  <a href="https://github.com/PIR-IDS/wallet-card">
     <img src="https://avatars.githubusercontent.com/u/99486891" alt="Logo" width="130">
   </a>
 
   <p align="center">
     IDS: Code for the Arduino Nano 33 BLE board
     <br />
-    <a href="https://github.com/PIR-IDS/nano33ble/releases"><strong>See Releases »</strong></a>
+    <a href="https://github.com/PIR-IDS/wallet-card/releases"><strong>See Releases »</strong></a>
     <br />
     <br />
     <a href="#">Research Paper</a>
     ·
-    <a href="https://github.com/PIR-IDS/nano33ble/actions/workflows/test.yml">Test Results</a>
+    <a href="https://github.com/PIR-IDS/wallet-card/actions/workflows/test.yml">Test Results</a>
     ·
     <a href="https://github.com/PIR-IDS/.github/blob/main/profile/README.md#usage">See Global Usage</a>
   </p>
@@ -78,7 +78,7 @@ This code will be used in order to detect anomalies and to inform our IDS about 
 
 1. Clone the project
    ```sh
-   git clone https://github.com/PIR-IDS/nano33ble.git
+   git clone https://github.com/PIR-IDS/wallet-card.git
    ```
 2. Install the dependencies by typing the following command while being in the project root:
    ```sh
@@ -165,6 +165,6 @@ Pierre Favary [ [GitHub](https://github.com/pdf-0) ] – Co-developer
 <!-- CONTACT -->
 ## Contact
 
-Project Link : [https://github.com/PIR-IDS/nano33ble](https://github.com/PIR-IDS/nano33ble)
+Project Link : [https://github.com/PIR-IDS/wallet-card](https://github.com/PIR-IDS/wallet-card)
 
 Organization Link : [https://github.com/PIR-IDS](https://github.com/PIR-IDS)
