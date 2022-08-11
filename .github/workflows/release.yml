@@ -1,0 +1,71 @@
+name: Build Firmware
+
+on:
+  release:
+    types: [released, prereleased]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up caching
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.platformio/.cache
+          key: ${{ runner.os }}-pio
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install PlatformIO Core
+        run: pip install --upgrade platformio
+
+      - name: Install Doxygen
+        run: sudo apt-get install -y doxygen
+
+      - name: Build Doxygen documentation
+        run: |
+          mkdir -p build/docs
+          wget https://user-images.githubusercontent.com/26198903/184120070-8a05ab1c-6abf-40b0-a7cc-3ee57c1b2bb5.png -O build/docs/logo.png
+          doxygen
+
+      - name: Zip Doxygen documentation
+        run: cd build/docs && zip -r documentation.zip html
+
+      - name: Upload Doxygen documentation
+        uses: softprops/action-gh-release@v1
+        with:
+          files: build/docs/documentation.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build PlatformIO Project
+        run: pio run -e release
+
+      - name: Upload Release Firmware
+        uses: softprops/action-gh-release@v1
+        with:
+          files: .pio/build/release/firmware.bin
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+#      - if: failure()
+#        name: Delete release
+#        run: |
+#          curl -s -X DELETE \
+#            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+#            -H "Accept: application/vnd.github.v3+json" \
+#            https://api.github.com/repos/${{ github.event.repository.full_name }}/releases/${{ github.event.release.id }}
+#          curl -s -X DELETE \
+#            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+#            -H "Accept: application/vnd.github.v3+json" \
+#            https://api.github.com/repos/${{ github.event.repository.full_name }}/git/refs/tags/${{ github.event.release.tag_name }}

@@ -1,0 +1,38 @@
+name: Test with Unity
+
+on:
+  push:
+    branches: [ master ]
+
+  workflow_dispatch:
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up caching
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.platformio/.cache
+          key: ${{ runner.os }}-pio
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install PlatformIO Core
+        run: pip install --upgrade platformio
+
+      - name: Run the desktop tests with Unity
+        run: pio test -e native_debug -e native_release
+
+      # Not yet implemented (will have to use a simulator in CI, see: https://docs.platformio.org/en/latest/advanced/unit-testing/simulators/qemu.html)
+      #- name: Run the board tests with Unity
+      #  run: pio test -e debug -e release

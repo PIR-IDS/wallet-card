@@ -129,11 +129,27 @@ Again, by adding the `-e release` option you will be in `release` mode.
 
 ### Tests
 
-_TODO_
+Before running the tests on your machine, you need to follow these instructions: https://docs.platformio.org/en/latest/platforms/native.html#installation
+
+Then, you can run the "desktop" (i.e. not necessitating the board) tests with the following command:
+  ```sh
+  pio test -e native_debug -e native_release
+  ```
+
+If you want to run the tests for the board, you need to run this command with the board plugged:
+  ```sh
+  pio test -e debug -e release
+  ```
 
 ### Documentation
 
-_TODO_
+Before generating the documentation on your machine, you need to follow these instructions: https://doxygen.nl/manual/install.html
+
+Then, to generate the Doxygen documentation, run the following commands:
+  ```sh
+  mkdir -p build/docs
+  doxygen
+  ```
 
 ***
 
